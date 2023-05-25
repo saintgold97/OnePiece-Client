@@ -1,0 +1,43 @@
+.navbar {
+  padding: .5rem 1rem;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  background-color: rgb(33 37 41 / 90%);
+}
+
+.navbar-toggler {
+  border: 0;
+  background-color: rgb(255 255 255 / 80%);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 var(--bs-danger-text-emphasis);
+}
+
+.navbar-nav a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+}
+
+.navbar-nav a:hover {
+  color: darkred;
+}
+
+.nav-link {
+  width: 100%;
+  justify-content: space-between;
+}
+
+@media (max-width: 992px) {
+  .nav-link-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-link-users {
+    display: flex;
+    flex-direction: column;
+  }
+}

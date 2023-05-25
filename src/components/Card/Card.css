@@ -1,0 +1,43 @@
+.h5 {
+  color: aliceblue;
+  text-align: center;
+}
+
+.card {
+  background-color: rgb(33 37 41);
+  height: 21rem;
+  margin: 30px auto;
+  transition: 0.25s;
+}
+
+.card:hover {
+  box-shadow: 10px 5px 40px 20px darken(#341cac, 10%);
+  cursor: pointer;
+}
+
+.card-img-top {
+  height: 50%;
+  border-radius: 1rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  height: 50%;
+  padding: 20px;
+  width: 100%;
+}
+
+.card-text {
+  text-align: left;
+  color: rgb(245, 245, 245);
+  
+}
+
+h3 {
+  color: rgb(245, 245, 245);
+}
+
+span {
+  color: orange;
+}
