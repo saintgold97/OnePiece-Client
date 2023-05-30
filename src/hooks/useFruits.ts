@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Character } from "../models/character";
 import { useSearchParams } from "react-router-dom";
-export const urlCharacters = "http://localhost:3001/v1/characters";
+import { Fruit } from "../models/fruit";
+export const urlFruits = "http://localhost:3001/v1/fruits";
 
-export const useCharacters = (props: {
-  name?: string;
-  role?: string;
-  crew?: string;
-}): [Character[], boolean] => {
-  const [character, setCharacter] = useState<Character[]>([]);
+export const useFruits = (props: {
+  type?: string;
+}): [Fruit[], boolean] => {
+  const [fruit, setFruit] = useState<Fruit[]>([]);
   const [isLoading, setLoading] = useState(false);
-  const { name, role, crew } = props;
+  const { type } = props;
   const [params, setParams] = useSearchParams();
 
   const objectToQueryParams = (obj: any) => {
@@ -26,18 +24,16 @@ export const useCharacters = (props: {
 
   useEffect(() => {
     const urlParams = objectToQueryParams({
-      name: name,
-      role: role,
-      crew: crew,
+      tpe: type,
     });
     
     setParams(urlParams);
     setLoading(true);
     setTimeout(() => {
       axios
-        .get<Character>(`${urlCharacters}?${urlParams}`)
+        .get<Fruit>(`${urlFruits}?${urlParams}`)
         .then((response: any) => {
-          setCharacter(response.data);
+          setFruit(response.data);
           //console.log(response.data)
         })
         .catch((err) => {
@@ -47,6 +43,6 @@ export const useCharacters = (props: {
           setLoading(false);
         });
     }, 1000);
-  }, [name, role, crew, setParams]);
-  return [character, isLoading];
+  }, [type, setParams]);
+  return [fruit, isLoading];
 };

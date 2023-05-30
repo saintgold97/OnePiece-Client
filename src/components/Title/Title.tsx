@@ -1,12 +1,16 @@
-import React from 'react'
 import "./Title.css"
 
-export const Title = () => {
+interface TitleProps {
+  className?: string;
+  title?:string
+}
+
+export const Title: React.FC<TitleProps> = ({className,title}) => {
   return (
-    <section className="title">
+    <div className={`title ${className}`}>
         <div className="inner">
-          <h1>One piece</h1>
+          <h1>{title}</h1>
         </div>
-      </section>
+      </div>
   )
 }

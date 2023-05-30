@@ -4,25 +4,45 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { MyNav } from "./components/Navbar/Navbar";
 import { Characters } from "./components/Characters/Characters";
 import { Home } from "./components/Home/Home";
+import { SingleCharacter } from "./components/DetailCard/SingleCharacter";
+import { Crews } from "./components/Crews/Crews";
+import { Fruits } from "./components/Fruits/Fruits";
+import SingleCrew from "./components/DetailCard/SingleCrew";
+import SingleFruit from "./components/DetailCard/SingleFruit";
+import Signup from "./components/Users/Signup/Signup";
+import Login from "./components/Users/Login/Login";
 
-export const apiVersion = "v1"
+export const apiVersion = "v1";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App" id="grad">
         <MyNav />
         <Routes>
           <Route path="/" element={<Outlet />}>
             <Route index path="/" element={<Home />} />
             <Route path={`/${apiVersion}/characters`}>
-              <Route index element={<Characters />}></Route>
+              <Route index element={<Characters />} />
+              <Route path=":_id" element={<SingleCharacter />} />
+            </Route>
+            <Route path={`/${apiVersion}/crews`}>
+              <Route index element={<Crews />} />
+              <Route path=":_id" element={<SingleCrew />} />
+            </Route>
+            <Route path={`/${apiVersion}/fruits`}>
+              <Route index element={<Fruits />} />
+              <Route path=":_id" element={<SingleFruit />} />
+            </Route>
+            <Route path={`/${apiVersion}/users`}>
+              <Route path="signup" element={<Signup />} />
+              <Route path="login" element={<Login />} />
             </Route>
           </Route>
         </Routes>
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

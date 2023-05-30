@@ -1,11 +1,10 @@
 .title {
     position: relative;
     height: 90vh;
-    background-image: url(https://images6.alphacoders.com/606/606263.jpg);
     background-size: cover;
     background-attachment: fixed;
+    background-position: bottom;
     color: #ffffff;
-  
     display: flex;
     align-items: center;
     justify-content: center;

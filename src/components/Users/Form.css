@@ -1,0 +1,29 @@
+.form-container{
+    padding-top: 5rem;
+    text-align: center;
+}
+
+.form-title{
+    color: black; 
+    text-align: center;
+}
+
+.form{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 1rem;
+}
+
+.btn-click{
+    margin: 0 7rem;
+}
+
+.checkbox{
+    display: flex;
+}
+
+

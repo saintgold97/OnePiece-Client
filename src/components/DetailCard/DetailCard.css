@@ -1,0 +1,88 @@
+.single-item {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+.card-image{
+  width: 50%;
+}
+
+.card-single-body{
+  height: 100%;
+  width: 50%;
+}
+
+.detail-item{
+  width: 42rem;
+  height: 20rem;
+  flex-direction: row;
+}
+
+.all-item{
+  display: flex;
+  flex-direction: column;
+}
+
+.all-item button{
+  margin: 0rem 4rem;
+  background-color: white;
+  color: grey;
+  border: 1px black;
+}
+
+.all-item button:hover{
+  background-color: darkgoldenrod;
+  color: white;
+}
+
+.theme-link{
+  background-color: darkgoldenrod;
+}
+
+.list-group-item {
+  color: white;
+  text-align: left;
+}
+
+.list-group-item a {
+  text-decoration: none;
+  color: grey;
+}
+
+.list-group-item a:hover {
+  color: orange;
+}
+
+.item-episode{
+  width: 65px;
+  padding: 7px 5px;
+}
+
+@media (max-width: 768px) {
+  .single-change{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .detail-item{
+    height: 32rem;
+    flex-direction: column;
+  }
+
+  .card-image{
+    height: 50%;
+    width: 100%;
+
+  }
+
+  .card-image-top{
+    height: auto;
+  }
+
+  .card-single-body{
+    width: 100%;
+  }
+  
+}

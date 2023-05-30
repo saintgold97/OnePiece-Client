@@ -1,0 +1,18 @@
+.overlay-fruits{
+    background-image: url(https://staticg.sportskeeda.com/editor/2021/12/5ec3c-16395114659019-1920.jpg);
+}
+
+.fruits-card{
+    display: flex;
+    flex-direction: row;
+    height: 15rem;
+}
+
+.fruits-card img{
+    height: 100%;
+    width: 30%;
+}
+
+.fruits-card .card-body{
+    width: 0;
+}
