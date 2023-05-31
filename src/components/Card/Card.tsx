@@ -1,5 +1,4 @@
 import "./Card.css";
-import { Character } from "../../models/character";
 import { Card } from "react-bootstrap";
 
 interface CardProps {

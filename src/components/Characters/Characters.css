@@ -1,3 +1,13 @@
 .overlay-characters{
     background-image: url(https://images6.alphacoders.com/606/606263.jpg);
 }
+
+.new-card .card-title{
+    padding: 3rem 0rem;
+}
+
+.input-group{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

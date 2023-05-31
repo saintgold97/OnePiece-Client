@@ -16,3 +16,18 @@
 .fruits-card .card-body{
     width: 0;
 }
+
+@media (max-width: 768px) {
+    .fruits-card{
+        height: 42rem;
+        flex-direction: column;
+    }
+
+    .fruits-card img{
+        width: 100%;
+    }
+
+    .fruits-card .card-body{
+        width: 100%;
+    }
+}

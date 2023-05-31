@@ -24,7 +24,7 @@ export const useFruits = (props: {
 
   useEffect(() => {
     const urlParams = objectToQueryParams({
-      tpe: type,
+      type: type,
     });
     
     setParams(urlParams);

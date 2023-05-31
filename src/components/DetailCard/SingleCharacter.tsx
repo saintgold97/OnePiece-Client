@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Character } from "../../models/character";
 import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
 import "./DetailCard.css";
-import ButtonSingleCard from "../../ButtonSingleCard/ButtonSingleCard";
+import ButtonSingleCard from "../ButtonSingleCard/ButtonSingleCard";
 
 export const SingleCharacter = () => {
   const { _id } = useParams();
@@ -21,7 +21,7 @@ export const SingleCharacter = () => {
     name: "",
     role: "",
     size: "",
-    age: 0,
+    age: Number(''),
     bounty: "",
     fruit: "",
     crew: "",
@@ -42,11 +42,10 @@ export const SingleCharacter = () => {
         urlImg: editStatus.urlImg !== "" ? editStatus.urlImg : character!.urlImg,
       };
       await axios.patch(`${urlCharacters}/${_id}`, updatedStatus);
-      setEditStatus(editStatus);
+      setEditStatus(editStatus); 
       setUpdateSuccess(true)
       console.log("Aggiornato");
       setShowEdit(false)
-      //navigate(`/v1/characters/${_id}`);
 
     } catch (error) {
       console.error(error);
@@ -165,7 +164,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                value={editStatus.name}
+                defaultValue={character?.name}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -181,7 +180,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>Role</Form.Label>
               <Form.Control
-                value={editStatus.role}
+                defaultValue={character?.role}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -196,7 +195,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>Size</Form.Label>
               <Form.Control
-                value={editStatus.size}
+                defaultValue={character?.size}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -211,7 +210,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>Age</Form.Label>
               <Form.Control
-                value={editStatus.age}
+                defaultValue={character?.age}
                 onChange={(e) =>
                   setEditStatus((prev)=>({
                     ...prev,
@@ -226,7 +225,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>Bounty</Form.Label>
               <Form.Control
-                value={editStatus.bounty}
+                defaultValue={character?.bounty}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -241,7 +240,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>Fruit</Form.Label>
               <Form.Control
-                value={editStatus.fruit}
+                defaultValue={character?.fruit}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -256,7 +255,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>Crew</Form.Label>
               <Form.Control
-                value={editStatus.crew}
+                defaultValue={character?.crew}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -271,7 +270,7 @@ export const SingleCharacter = () => {
             <Form.Group className="mb-3">
             <Form.Label>UrlImg</Form.Label>
               <Form.Control
-                value={editStatus.urlImg}
+                defaultValue={character?.urlImg}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,

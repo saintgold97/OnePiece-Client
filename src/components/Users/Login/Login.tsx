@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import "../Form.css";
+import { Link } from "react-router-dom";
+import { apiVersion } from "../../../App";
 
 const Login = () => {
   return (
@@ -19,8 +21,12 @@ const Login = () => {
                 <Form.Control required type="password" placeholder="Password" />
               </Form.Group>
               <Button className="btn-click" variant="primary" type="submit">
-                Submit
+                Login
               </Button>
+              <div className="d-flex mt-3 justify-content-center">
+                <p className="pe-1">Don't have an account?</p>
+                <Link to={`/${apiVersion}/users/signup`}>Signup</Link>
+              </div>
             </Form>
           </div>
         </div>

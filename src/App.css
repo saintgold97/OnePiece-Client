@@ -1,5 +1,6 @@
-body, html {
-  font-family: 'Montserrat', sans-serif;
+body,
+html {
+  font-family: "Montserrat", sans-serif;
 }
 
 /* .App {
@@ -11,20 +12,33 @@ body, html {
   background-image: linear-gradient(to bottom right, #c39712, #8b300c);
 }
 
-h1{
+h1 {
   font-weight: 900;
   letter-spacing: 3px;
   color: white;
 }
 
-h2{
+h2 {
   text-align: center;
   padding-top: 20px;
   color: #fff;
 }
 
-.title-single{
+.title-single {
   padding-top: 5rem;
   padding-bottom: 1rem;
   text-align: center;
+}
+
+.search {
+  display: flex;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .search{
+    flex-direction: column;
+  }
 }

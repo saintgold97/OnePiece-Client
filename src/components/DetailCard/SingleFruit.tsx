@@ -5,7 +5,7 @@ import { useFruits, urlFruits } from "../../hooks/useFruits";
 import { Fruit } from "../../models/fruit";
 import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
 import "./DetailCard.css";
-import ButtonSingleCard from "../../ButtonSingleCard/ButtonSingleCard";
+import ButtonSingleCard from "../ButtonSingleCard/ButtonSingleCard";
 
 const SingleFruit = () => {
   const { _id } = useParams();
@@ -42,7 +42,7 @@ const SingleFruit = () => {
       await axios.patch(`${urlFruits}/${_id}`, updatedStatus);
       setEditStatus(editStatus);
       setUpdateSuccess(true);
-      console.log("Aggiornato");
+      console.log("Aggiornato", editStatus);
       setShowEdit(false);
      // navigate(`/v1/crews/${_id}`);
     } catch (error) {
@@ -139,14 +139,14 @@ const SingleFruit = () => {
       {/* Modal for edit */}
       <Modal show={showEdit} onHide={handleCloseEdit}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit character</Modal.Title>
+          <Modal.Title>Edit Fruit</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
             <Form.Label>Romaji name</Form.Label>
               <Form.Control
-                value={editStatus.romaji_name}
+                defaultValue={fruit?.romaji_name}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -161,7 +161,7 @@ const SingleFruit = () => {
             <Form.Group className="mb-3">
             <Form.Label>Type</Form.Label>
               <Form.Control
-                value={editStatus.type}
+                defaultValue={fruit?.type}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -176,7 +176,9 @@ const SingleFruit = () => {
             <Form.Group className="mb-3">
             <Form.Label>Description</Form.Label>
               <Form.Control
-                value={editStatus.description}
+              as="textarea"
+              rows={3}
+                defaultValue={fruit?.description}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -191,7 +193,7 @@ const SingleFruit = () => {
             <Form.Group className="mb-3">
             <Form.Label>UrlImg</Form.Label>
               <Form.Control
-                value={editStatus.urlImg}
+                defaultValue={fruit?.urlImg}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,

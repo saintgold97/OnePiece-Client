@@ -5,7 +5,7 @@ import { useCrews, urlCrews } from "../../hooks/useCrews";
 import { Crew } from "../../models/crews";
 import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
 import "./DetailCard.css";
-import ButtonSingleCard from "../../ButtonSingleCard/ButtonSingleCard";
+import ButtonSingleCard from "../ButtonSingleCard/ButtonSingleCard";
 
 const SingleCrew = () => {
   const { _id } = useParams();
@@ -21,7 +21,7 @@ const SingleCrew = () => {
     english_name: "",
     romaji_name: "",
     total_bounty: "",
-    number_members: 0,
+    number_members: Number(""),
     urlImg: "",
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -158,7 +158,7 @@ const SingleCrew = () => {
             <Form.Group className="mb-3">
               <Form.Label>English name</Form.Label>
               <Form.Control
-                value={editStatus.english_name}
+                defaultValue={crew?.english_name}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -174,7 +174,7 @@ const SingleCrew = () => {
             <Form.Group className="mb-3">
             <Form.Label>Romaji name</Form.Label>
               <Form.Control
-                value={editStatus.romaji_name}
+                defaultValue={crew?.romaji_name}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -189,7 +189,7 @@ const SingleCrew = () => {
             <Form.Group className="mb-3">
             <Form.Label>Total bounty</Form.Label>
               <Form.Control
-                value={editStatus.total_bounty}
+                defaultValue={crew?.total_bounty}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
@@ -204,7 +204,7 @@ const SingleCrew = () => {
             <Form.Group className="mb-3">
             <Form.Label>Number members</Form.Label>
               <Form.Control
-                value={editStatus.number_members}
+                defaultValue={crew?.number_members}
                 onChange={(e) =>
                   setEditStatus((prev)=>({
                     ...prev,
@@ -219,7 +219,7 @@ const SingleCrew = () => {
             <Form.Group className="mb-3">
             <Form.Label>UrlImg</Form.Label>
               <Form.Control
-                value={editStatus.urlImg}
+                defaultValue={crew?.urlImg}
                 onChange={(e) => {
                   setEditStatus((prev)=>({
                     ...prev,
