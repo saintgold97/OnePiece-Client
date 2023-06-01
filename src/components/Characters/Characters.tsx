@@ -43,7 +43,6 @@ export const Characters = memo(() => {
       await axios.post(`${urlCharacters}`, add);
       setAdd(add);
       setAddSuccess(true);
-      console.log("Aggiunto", add);
     } catch (error) {
       console.error(error);
     }
@@ -202,21 +201,21 @@ export const Characters = memo(() => {
                       placeholder="UrlImg"
                     />
                   </Form.Group>
+                  <div className="text-end">
+                    {addSuccess && <p>Successful add</p>}
+                    <Button
+                      onClick={handleClose}
+                      style={{ marginRight: "1rem" }}
+                      variant="primary"
+                    >
+                      Close
+                    </Button>
+                    <Button onClick={addCard} variant="primary" type="submit">
+                      Add
+                    </Button>
+                  </div>
                 </Form>
               </Modal.Body>
-              <Modal.Footer className="mb-3 text-end">
-                {addSuccess && <p>Successful add</p>}
-                <Button
-                  onClick={handleClose}
-                  style={{ marginRight: "1rem" }}
-                  variant="primary"
-                >
-                  Close
-                </Button>
-                <Button onClick={addCard} variant="primary">
-                  Add
-                </Button>
-              </Modal.Footer>
             </Modal>
           </div>
           {isLoading && <CardLoaderContainer count={10} />}

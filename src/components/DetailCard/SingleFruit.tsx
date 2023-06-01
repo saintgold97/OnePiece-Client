@@ -25,6 +25,11 @@ const SingleFruit = () => {
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
+  //Ricarica della pagina appena aggiorno una card
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   const editCard = async () => {
     try {
       const updatedStatus = {
@@ -42,9 +47,7 @@ const SingleFruit = () => {
       await axios.patch(`${urlFruits}/${_id}`, updatedStatus);
       setEditStatus(editStatus);
       setUpdateSuccess(true);
-      console.log("Aggiornato", editStatus);
-      setShowEdit(false);
-     // navigate(`/v1/crews/${_id}`);
+      reloadPage();
     } catch (error) {
       console.error(error);
       console.log("Sono qui");
@@ -144,11 +147,11 @@ const SingleFruit = () => {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-            <Form.Label>Romaji name</Form.Label>
+              <Form.Label>Romaji name</Form.Label>
               <Form.Control
                 defaultValue={fruit?.romaji_name}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     romaji_name: e.target.value,
                   }));
@@ -159,11 +162,11 @@ const SingleFruit = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Type</Form.Label>
+              <Form.Label>Type</Form.Label>
               <Form.Control
                 defaultValue={fruit?.type}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     type: e.target.value,
                   }));
@@ -174,13 +177,13 @@ const SingleFruit = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
-              as="textarea"
-              rows={3}
+                as="textarea"
+                rows={3}
                 defaultValue={fruit?.description}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     description: e.target.value,
                   }));
@@ -191,11 +194,11 @@ const SingleFruit = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>UrlImg</Form.Label>
+              <Form.Label>UrlImg</Form.Label>
               <Form.Control
                 defaultValue={fruit?.urlImg}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     urlImg: e.target.value,
                   }));
@@ -205,17 +208,21 @@ const SingleFruit = () => {
                 placeholder="urlImg"
               />
             </Form.Group>
+            <div className="text-end">
+              {updateSuccess && <p>Successful update</p>}
+              <Button
+                className="me-1"
+                variant="secondary"
+                onClick={handleCloseEdit}
+              >
+                Close
+              </Button>
+              <Button variant="primary" onClick={editCard}>
+                Save Changes
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          {updateSuccess && <p>Successful update</p>}
-          <Button variant="secondary" onClick={handleCloseEdit}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={editCard}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
 
       {/* Modal for delete */}

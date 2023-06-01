@@ -123,8 +123,8 @@ export const Fruits = () => {
                   </Form.Group>
                   <Form.Group className="mb-3 input-group">
                     <Form.Control
-                    as="textarea"
-                    rows={3}
+                      as="textarea"
+                      rows={3}
                       value={add.urlImg}
                       onChange={(e) => {
                         setAdd((prev) => ({
@@ -137,21 +137,21 @@ export const Fruits = () => {
                       placeholder="UrlImg"
                     />
                   </Form.Group>
+                  <div className="text-end">
+                    {addSuccess && <p>Successful add</p>}
+                    <Button
+                      onClick={handleClose}
+                      style={{ marginRight: "1rem" }}
+                      variant="primary"
+                    >
+                      Close
+                    </Button>
+                    <Button onClick={addCard} variant="primary" type="submit">
+                      Add
+                    </Button>
+                  </div>
                 </Form>
               </Modal.Body>
-              <Modal.Footer className="mb-3 text-end">
-                {addSuccess && <p>Successful add</p>}
-                <Button
-                  onClick={handleClose}
-                  style={{ marginRight: "1rem" }}
-                  variant="primary"
-                >
-                  Close
-                </Button>
-                <Button onClick={addCard} variant="primary">
-                  Add
-                </Button>
-              </Modal.Footer>
             </Modal>
           </div>
           <div className="col-9">

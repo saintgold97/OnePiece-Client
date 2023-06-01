@@ -26,6 +26,11 @@ const SingleCrew = () => {
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
+  //Ricarica della pagina appena aggiorno una card
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   const editCard = async () => {
     try {
       const updatedStatus = {
@@ -50,9 +55,7 @@ const SingleCrew = () => {
       await axios.patch(`${urlCrews}/${_id}`, updatedStatus);
       setEditStatus(editStatus);
       setUpdateSuccess(true);
-      console.log("Aggiornato");
-      setShowEdit(false);
-      //navigate(`/v1/crews/${_id}`);
+      reloadPage();
     } catch (error) {
       console.error(error);
       console.log("Sono qui");
@@ -160,7 +163,7 @@ const SingleCrew = () => {
               <Form.Control
                 defaultValue={crew?.english_name}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     english_name: e.target.value,
                   }));
@@ -172,11 +175,11 @@ const SingleCrew = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Romaji name</Form.Label>
+              <Form.Label>Romaji name</Form.Label>
               <Form.Control
                 defaultValue={crew?.romaji_name}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     romaji_name: e.target.value,
                   }));
@@ -187,11 +190,11 @@ const SingleCrew = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Total bounty</Form.Label>
+              <Form.Label>Total bounty</Form.Label>
               <Form.Control
                 defaultValue={crew?.total_bounty}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     total_bounty: e.target.value,
                   }));
@@ -202,11 +205,11 @@ const SingleCrew = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Number members</Form.Label>
+              <Form.Label>Number members</Form.Label>
               <Form.Control
                 defaultValue={crew?.number_members}
                 onChange={(e) =>
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     number_members: Number(e.target.value),
                   }))
@@ -217,11 +220,11 @@ const SingleCrew = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>UrlImg</Form.Label>
+              <Form.Label>UrlImg</Form.Label>
               <Form.Control
                 defaultValue={crew?.urlImg}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     urlImg: e.target.value,
                   }));
@@ -231,17 +234,21 @@ const SingleCrew = () => {
                 placeholder="urlImg"
               />
             </Form.Group>
+            <div className="text-end">
+              {updateSuccess && <p>Successful update</p>}
+              <Button
+                className="me-1"
+                variant="secondary"
+                onClick={handleCloseEdit}
+              >
+                Close
+              </Button>
+              <Button variant="primary" onClick={editCard}>
+                Save Changes
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          {updateSuccess && <p>Successful update</p>}
-          <Button variant="secondary" onClick={handleCloseEdit}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={editCard}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
 
       {/* Modal for delete */}

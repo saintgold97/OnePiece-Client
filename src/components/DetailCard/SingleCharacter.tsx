@@ -21,7 +21,7 @@ export const SingleCharacter = () => {
     name: "",
     role: "",
     size: "",
-    age: Number(''),
+    age: Number(""),
     bounty: "",
     fruit: "",
     crew: "",
@@ -29,24 +29,33 @@ export const SingleCharacter = () => {
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
+  
+  //Ricarica della pagina appena aggiorno una card
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   const editCard = async () => {
     try {
       const updatedStatus = {
         name: editStatus.name !== "" ? editStatus.name : character!.name,
         role: editStatus.role !== "" ? editStatus.role : character!.role,
         size: editStatus.size !== "" ? editStatus.size : character!.size,
-        age: editStatus.age !== Number("") ? Number(editStatus.age) :  character!.age,
-        bounty: editStatus.bounty !== "" ? editStatus.bounty : character!.bounty,
+        age:
+          editStatus.age !== Number("")
+            ? Number(editStatus.age)
+            : character!.age,
+        bounty:
+          editStatus.bounty !== "" ? editStatus.bounty : character!.bounty,
         fruit: editStatus.fruit !== "" ? editStatus.fruit : character!.fruit,
         crew: editStatus.crew !== "" ? editStatus.crew : character!.crew,
-        urlImg: editStatus.urlImg !== "" ? editStatus.urlImg : character!.urlImg,
+        urlImg:
+          editStatus.urlImg !== "" ? editStatus.urlImg : character!.urlImg,
       };
       await axios.patch(`${urlCharacters}/${_id}`, updatedStatus);
-      setEditStatus(editStatus); 
-      setUpdateSuccess(true)
-      console.log("Aggiornato");
-      setShowEdit(false)
-
+      setEditStatus(editStatus);
+      setUpdateSuccess(true);
+      reloadPage()
     } catch (error) {
       console.error(error);
       console.log("Sono qui");
@@ -166,7 +175,7 @@ export const SingleCharacter = () => {
               <Form.Control
                 defaultValue={character?.name}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     name: e.target.value,
                   }));
@@ -178,11 +187,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Role</Form.Label>
+              <Form.Label>Role</Form.Label>
               <Form.Control
                 defaultValue={character?.role}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     role: e.target.value,
                   }));
@@ -193,11 +202,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Size</Form.Label>
+              <Form.Label>Size</Form.Label>
               <Form.Control
                 defaultValue={character?.size}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     size: e.target.value,
                   }));
@@ -208,11 +217,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Age</Form.Label>
+              <Form.Label>Age</Form.Label>
               <Form.Control
                 defaultValue={character?.age}
                 onChange={(e) =>
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     age: Number(e.target.value),
                   }))
@@ -223,11 +232,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Bounty</Form.Label>
+              <Form.Label>Bounty</Form.Label>
               <Form.Control
                 defaultValue={character?.bounty}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     bounty: e.target.value,
                   }));
@@ -238,11 +247,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Fruit</Form.Label>
+              <Form.Label>Fruit</Form.Label>
               <Form.Control
                 defaultValue={character?.fruit}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     fruit: e.target.value,
                   }));
@@ -253,11 +262,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>Crew</Form.Label>
+              <Form.Label>Crew</Form.Label>
               <Form.Control
                 defaultValue={character?.crew}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     crew: e.target.value,
                   }));
@@ -268,11 +277,11 @@ export const SingleCharacter = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Label>UrlImg</Form.Label>
+              <Form.Label>UrlImg</Form.Label>
               <Form.Control
                 defaultValue={character?.urlImg}
                 onChange={(e) => {
-                  setEditStatus((prev)=>({
+                  setEditStatus((prev) => ({
                     ...prev,
                     urlImg: e.target.value,
                   }));
@@ -282,17 +291,17 @@ export const SingleCharacter = () => {
                 placeholder="urlImg"
               />
             </Form.Group>
+            <div className="text-end">
+              {updateSuccess && <p>Successful update</p>}
+              <Button className="me-1" variant="secondary" onClick={handleCloseEdit}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={editCard}>
+                Save Changes
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          {updateSuccess && <p>Successful update</p>}
-          <Button variant="secondary" onClick={handleCloseEdit}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={editCard}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
       {/* Modal for delete */}
       <Modal

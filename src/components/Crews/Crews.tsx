@@ -1,6 +1,5 @@
 import React, { memo, useState } from "react";
 import "./Crews.css";
-
 import { Title } from "../Title/Title";
 import { urlCrews, useCrews } from "../../hooks/useCrews";
 import { CardLoaderContainer } from "../CardLoader/CardLoader";
@@ -32,13 +31,11 @@ export const Crews = memo(() => {
   });
 
   const [addSuccess, setAddSuccess] = useState(false);
-
-  const addCard = async () => {
+const addCard = async () => {
     try {
       await axios.post(`${urlCrews}`, add);
       setAdd(add);
       setAddSuccess(true);
-      console.log("Aggiunto", add);
     } catch (error) {
       console.error(error);
     }
@@ -127,9 +124,9 @@ export const Crews = memo(() => {
                       placeholder="Total bounty"
                       required
                     />
-                    </Form.Group>
+                  </Form.Group>
                   <Form.Group className="mb-3 input-group">
-                     <Form.Label className="pe-2">Number Members</Form.Label>
+                    <Form.Label className="pe-2">Number Members</Form.Label>
                     <Form.Control
                       value={add.number_members}
                       onChange={(e) => {
@@ -160,21 +157,21 @@ export const Crews = memo(() => {
                       placeholder="UrlImg"
                     />
                   </Form.Group>
+                  {addSuccess && <p>Successful add</p>}
+                  <div className="text-end">
+                    <Button
+                      onClick={handleClose}
+                      style={{ marginRight: "1rem" }}
+                      variant="primary"
+                    >
+                      Close
+                    </Button>
+                    <Button onClick={addCard} variant="primary" type="submit">
+                      Add
+                    </Button>
+                  </div>
                 </Form>
               </Modal.Body>
-              <Modal.Footer className="mb-3 text-end">
-                {addSuccess && <p>Successful add</p>}
-                <Button
-                  onClick={handleClose}
-                  style={{ marginRight: "1rem" }}
-                  variant="primary"
-                >
-                  Close
-                </Button>
-                <Button onClick={addCard} variant="primary">
-                  Add
-                </Button>
-              </Modal.Footer>
             </Modal>
           </div>
           {isLoading && <CardLoaderContainer count={10} />}
