@@ -6,12 +6,26 @@ import { Character } from "../../models/character";
 import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
 import "./DetailCard.css";
 import ButtonSingleCard from "../ButtonSingleCard/ButtonSingleCard";
+import { useCookies } from "react-cookie";
 
 export const SingleCharacter = () => {
   const { _id } = useParams();
   const navigate = useNavigate();
   const [character, setCharacter] = useState<Character | null>(null);
   const [allCharacters] = useCharacters({});
+  
+  //Gestione cookie
+  const [cookie, setCookie] = useCookies(["token"]);
+  const token = cookie.token;
+
+  const handleHeaders = () => {
+    return {
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    };
+  };
 
   //Status Edit by ID
   const [showEdit, setShowEdit] = useState(false);
@@ -29,7 +43,6 @@ export const SingleCharacter = () => {
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
-  
   //Ricarica della pagina appena aggiorno una card
   const reloadPage = () => {
     window.location.reload();
@@ -52,10 +65,10 @@ export const SingleCharacter = () => {
         urlImg:
           editStatus.urlImg !== "" ? editStatus.urlImg : character!.urlImg,
       };
-      await axios.patch(`${urlCharacters}/${_id}`, updatedStatus);
+      await axios.patch(`${urlCharacters}/${_id}`, updatedStatus, handleHeaders());
       setEditStatus(editStatus);
       setUpdateSuccess(true);
-      reloadPage()
+      reloadPage();
     } catch (error) {
       console.error(error);
       console.log("Sono qui");
@@ -70,7 +83,7 @@ export const SingleCharacter = () => {
 
   const deleteCard = async () => {
     try {
-      await axios.delete(`${urlCharacters}/${_id}`);
+      await axios.delete(`${urlCharacters}/${_id}`,handleHeaders());
       setDeleteStatus("Delete successful");
       navigate("/v1/characters");
     } catch (error) {
@@ -122,6 +135,7 @@ export const SingleCharacter = () => {
               <Card className="detail-item">
                 <div className="card-image">
                   <Card.Img
+                    title="single-character"
                     style={{ height: "100%" }}
                     variant="top"
                     src={character?.urlImg}
@@ -293,7 +307,11 @@ export const SingleCharacter = () => {
             </Form.Group>
             <div className="text-end">
               {updateSuccess && <p>Successful update</p>}
-              <Button className="me-1" variant="secondary" onClick={handleCloseEdit}>
+              <Button
+                className="me-1"
+                variant="secondary"
+                onClick={handleCloseEdit}
+              >
                 Close
               </Button>
               <Button variant="primary" onClick={editCard}>

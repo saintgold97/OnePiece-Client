@@ -1,12 +1,8 @@
-body,
+/* body,
 html {
   font-family: "Montserrat", sans-serif;
-}
+} */
 
-/* .App {
-
-}
- */
 #grad {
   background-color: #c39712;
   background-image: linear-gradient(to bottom right, #c39712, #8b300c);
@@ -16,6 +12,7 @@ h1 {
   font-weight: 900;
   letter-spacing: 3px;
   color: white;
+  font-size: 40px
 }
 
 h2 {

@@ -6,6 +6,7 @@ import { Fruit } from "../../models/fruit";
 import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
 import "./DetailCard.css";
 import ButtonSingleCard from "../ButtonSingleCard/ButtonSingleCard";
+import { useCookies } from "react-cookie";
 
 const SingleFruit = () => {
   const { _id } = useParams();
@@ -24,6 +25,19 @@ const SingleFruit = () => {
     urlImg: "",
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  //Gestione cookie
+  const [cookie, setCookie] = useCookies(["token"]);
+  const token = cookie.token;
+
+  const handleHeaders = () => {
+    return {
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    };
+  };
 
   //Ricarica della pagina appena aggiorno una card
   const reloadPage = () => {
@@ -44,7 +58,7 @@ const SingleFruit = () => {
             : fruit!.description,
         urlImg: editStatus.urlImg !== "" ? editStatus.urlImg : fruit!.urlImg,
       };
-      await axios.patch(`${urlFruits}/${_id}`, updatedStatus);
+      await axios.patch(`${urlFruits}/${_id}`, updatedStatus,handleHeaders());
       setEditStatus(editStatus);
       setUpdateSuccess(true);
       reloadPage();
@@ -62,7 +76,7 @@ const SingleFruit = () => {
 
   const deleteCard = async () => {
     try {
-      await axios.delete(`${urlFruits}/${_id}`);
+      await axios.delete(`${urlFruits}/${_id}`, handleHeaders());
       setDeleteStatus("Delete successful");
       navigate("/v1/fruits");
     } catch (error) {
@@ -115,6 +129,7 @@ const SingleFruit = () => {
               <Card className="detail-item">
                 <div className="card-image">
                   <Card.Img
+                    title="single-fruit"
                     style={{ height: "100%" }}
                     variant="top"
                     src={fruit?.urlImg}

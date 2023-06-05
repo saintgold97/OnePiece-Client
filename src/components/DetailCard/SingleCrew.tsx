@@ -6,6 +6,7 @@ import { Crew } from "../../models/crews";
 import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
 import "./DetailCard.css";
 import ButtonSingleCard from "../ButtonSingleCard/ButtonSingleCard";
+import { useCookies } from "react-cookie";
 
 const SingleCrew = () => {
   const { _id } = useParams();
@@ -25,6 +26,19 @@ const SingleCrew = () => {
     urlImg: "",
   });
   const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  //Gestione cookie
+  const [cookie, setCookie] = useCookies(["token"]);
+  const token = cookie.token;
+
+  const handleHeaders = () => {
+    return {
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    };
+  };
 
   //Ricarica della pagina appena aggiorno una card
   const reloadPage = () => {
@@ -52,7 +66,7 @@ const SingleCrew = () => {
             : crew!.number_members,
         urlImg: editStatus.urlImg !== "" ? editStatus.urlImg : crew!.urlImg,
       };
-      await axios.patch(`${urlCrews}/${_id}`, updatedStatus);
+      await axios.patch(`${urlCrews}/${_id}`, updatedStatus, handleHeaders());
       setEditStatus(editStatus);
       setUpdateSuccess(true);
       reloadPage();
@@ -70,7 +84,7 @@ const SingleCrew = () => {
 
   const deleteCard = async () => {
     try {
-      await axios.delete(`${urlCrews}/${_id}`);
+      await axios.delete(`${urlCrews}/${_id}`,handleHeaders());
       setDeleteStatus("Delete successful");
       navigate("/v1/crews");
     } catch (error) {
@@ -122,6 +136,7 @@ const SingleCrew = () => {
               <Card className="detail-item">
                 <div className="card-image">
                   <Card.Img
+                    title="single-crew"
                     style={{ height: "100%" }}
                     variant="top"
                     src={crew?.urlImg}

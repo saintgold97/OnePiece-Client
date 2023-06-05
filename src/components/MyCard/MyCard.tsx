@@ -1,4 +1,4 @@
-import "./Card.css";
+import "./MyCard.css";
 import { Card } from "react-bootstrap";
 
 interface CardProps {
@@ -13,7 +13,7 @@ interface CardProps {
   span3?: string;
 }
 
-export const Cards: React.FC<CardProps> = ({
+export const MyCard: React.FC<CardProps> = ({
   className,
   img,
   title,

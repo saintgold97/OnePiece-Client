@@ -1,3 +1,26 @@
 .overlay-home{
     background-image: url(https://images8.alphacoders.com/125/1252336.jpg);
 }
+
+#section-description{
+    margin: 0.5rem 1rem;
+    border: 3px solid;
+    background: darkgoldenrod;
+    border-radius: 70px;
+}
+
+.section-page a{
+    text-decoration: none;
+}
+
+.list-section .card-title{
+    padding: 3rem 0rem;
+}
+
+#section-access{
+    border: 1px solid;
+    margin: 0px 30px;
+    padding: 20px 0;
+    background: darkgoldenrod;
+    border-radius: 70px;
+}

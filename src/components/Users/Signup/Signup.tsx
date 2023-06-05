@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import "../Form.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiVersion } from "../../../App";
 import { User } from "../../../models/user";
 import axios from "axios";
@@ -15,15 +15,26 @@ const Signup = () => {
     password: "",
   });
 
-  const [addSuccess, setAddSuccess] = useState(false);
+  const navigate = useNavigate();
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
+
+  const isFormValid =
+    add.name &&
+    add.surname &&
+    add.email &&
+    add.password!.length >= 8 &&
+    checkboxChecked;
 
   const addUser = async () => {
     try {
-      await axios.post(`${urlUsers}/signup`, add);
+      const response = await axios.post(`${urlUsers}/signup`, add);
       setAdd(add);
       console.log("Aggiunto", add);
-    } catch (error) {
-      console.error(error);
+      navigate(`/${apiVersion}/users/validate`);
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        window.alert("Email just present");
+      }
     }
   };
 
@@ -31,7 +42,7 @@ const Signup = () => {
     <section className="form-container">
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-sm-9 col-md-9 col-lg-6 ">
+          <div className="col-sm-9 col-md-9 col-lg-6">
             <Form className="form">
               <h1 className="form-title">Signup</h1>
               <Form.Group className="mb-3">
@@ -65,7 +76,6 @@ const Signup = () => {
                   name="surname"
                   placeholder="Surname"
                   required
-                  autoFocus
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -82,7 +92,6 @@ const Signup = () => {
                   name="email"
                   placeholder="Enter email"
                   required
-                  autoFocus
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -99,22 +108,40 @@ const Signup = () => {
                   placeholder="Password"
                   name="password"
                   required
-                  autoFocus
+                  isInvalid={
+                    add.password!.length > 0 && add.password!.length < 8
+                  }
                 />
+                {add.password!.length > 0 && add.password!.length < 8 && (
+                  <Form.Control.Feedback type="invalid">
+                    The password must have at least 8 characters
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group className="mb-3 checkbox">
-                <Form.Check className="pe-2" type="checkbox" required />
+                <Form.Check
+                  className="pe-2"
+                  type="checkbox"
+                  required
+                  checked={checkboxChecked}
+                  onChange={(e) => setCheckboxChecked(e.target.checked)}
+                />
                 <p>
-                  I agree to the <a href="#">Terms & Conditions</a> and{" "}
-                  <a href="#">Privacy Policy</a>
+                  I agree to the <Link to="#">Terms & Conditions</Link> and{" "}
+                  <Link to="#">Privacy Policy</Link>
                 </p>
               </Form.Group>
-              <Button onClick={addUser} className="btn-click" variant="primary" type="submit">
+              <Button
+                onClick={addUser}
+                className="btn-click"
+                variant="primary"
+                disabled={!isFormValid}
+              >
                 Submit
               </Button>
               <div className="d-flex mt-2 mt-3 justify-content-center">
                 <p className="pe-1">Have an account? </p>
-                <Link to={`/${apiVersion}/users/login`}> Login</Link>
+                <Link to={`/${apiVersion}/users/login`}>Login</Link>
               </div>
             </Form>
           </div>
